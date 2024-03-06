@@ -1,0 +1,79 @@
+#include <iostream>
+// fstream library allows file input/output
+#include <fstream> 
+#include <string>
+using namespace std;
+
+int main()
+{
+    // Create input stream using file
+    int count = 0;
+    string num[1000];
+    string namef[1000];
+    string namel[1000];
+    string first, last, outputname, id;
+    ifstream fin; 
+    string Inputname = "" ;
+    
+    cout << "Input file: ";
+    cin >> Inputname;
+    cout << "Output file: ";
+    cin >> outputname;
+
+    // Open file using provided filename
+    fin.open(Inputname); 
+    
+    while(fin >> first)
+    {
+        fin >> last >> id;
+        
+        num[count] = id;
+        namef[count] = first;
+        namel[count] = last;
+        count++;
+    }
+    // Close input stream when finished reading from it
+    fin.close();
+
+    //sorting out inputs from the file 
+    int small;
+    for (int i = 0; i < count - 1; i++)
+    {
+        string tempfirst, templast, tempID;
+        small = i;
+        for (int j = i + 1; j < count; j++)
+        {
+            if(num[j] < num[small])
+            {
+                small = j;
+            }
+        }
+        //assigning values
+        tempID = num[i];
+        tempfirst = namef[i];
+        templast = namel[i];
+
+        num[i] = num[small];
+        namef[i] = namef[small];
+        
+        namel[i] = namel[small];
+
+        num[small] = tempID;
+        namef[small] = tempfirst;
+        namef[small] = templast;
+    }
+    //Outputting results to new file
+    ofstream fileout;
+    fileout.open(outputname);
+    
+    if(fileout.is_open())
+    {
+        for(int i = 0; i < count; i++)
+        {
+            fileout << num[i] << " " << namef[i] << " " << namel[i] << endl;
+        }
+    }
+    //Close file
+    fileout.close();
+
+}
