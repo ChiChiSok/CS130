@@ -1,0 +1,50 @@
+#include <iostream>
+#include <string>
+#include <sstream>
+using namespace std;
+
+int main ()
+{   
+    //declaring two arrays for Morse and letters
+    char alphabet[26] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
+    string morse[26] = {".-", "-...", "-.-.", "-..", ".", "..-.", "--.", "....", "..", ".---", "-.-", ".-..", "--", "-.", "---", ".--.", "--.-", ".-.", "...", "-", "..-", "...-", ".--", "-..-", "-.--", "--.."};
+
+    //Prompt user input
+    cout << "Enter Morse words, one per line: " << endl;
+    string m;
+    getline(cin, m);
+    
+    //Declaring string streams variables to hold the words
+    stringstream ss;
+    string mes;
+    
+    //Making a loop run as long as "Quit" is not entered
+    while (m != "Quit") 
+    {   
+        //Declaring string stream to cut up the words
+        ss << m;
+        string L;
+        while (ss >> L)
+        {
+            for(int i = 0; i < 26; i++)
+            {
+                if(morse[i]==L)
+                {
+                    //Checking each letters against the arrays
+                    mes = mes + alphabet[i];
+                }
+            }
+            
+        }
+        //Clearing string stream
+        ss.clear();
+        getline(cin, m);
+
+        //Adding a space after each words
+        mes = mes + " ";
+    }
+
+    //Outputting results
+    cout << endl;
+    cout << mes;
+}
